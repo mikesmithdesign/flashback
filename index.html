@@ -19,6 +19,13 @@
         </div>
         <script type="text/babel">
 
+        var cardData = {
+            front: {
+                question: "You may know that React was created at _________.",
+                hint: "This company's site is known for being written in PHP."
+            }
+        }
+
             var App = function() {
                 return (
                   <div className="app">
@@ -31,23 +38,24 @@
                   </p>
 
                   <div className="card-list">
-                    {Card()}
+                    {Card(cardData)}
                   </div>
 
                   </div>
                 )
             }
 
-            var Card = function() {
+            var Card = function(props) {
                 return (
 
                 <div className="Card -front">
                   <div className="front">
                     <h3 className="question">
-                        You may know that React was created at _________.
+                        {props.front.question}
                     </h3>
                     <p className="hint">
-                      <span>Hint:</span> This company&#39;s site is known for being written in PHP.
+                      <span>Hint:</span>
+                      {props.front.hint}
                     </p>
                   </div>
                 </div>
