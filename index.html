@@ -1,0 +1,61 @@
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Flashback</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.4.2/umd/react.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.4.2/umd/react-dom.development.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="index.css">
+
+    </head>
+
+    <body>
+        <div id="app">
+
+        </div>
+        <script type="text/babel">
+
+            var App = function() {
+                return (
+                  <div className="app">
+                    <h1 className="title">
+                        Flashback
+                    </h1>
+
+                  <p className="subTitle">
+                     An interactive flashcard app.
+                  </p>
+
+                  <div className="card-list">
+                    {Card()}
+                  </div>
+
+                  </div>
+                )
+            }
+
+            var Card = function() {
+                return (
+
+                <div className="Card -front">
+                  <div className="front">
+                    <h3 className="question">
+                        You may know that React was created at _________.
+                    </h3>
+                    <p className="hint">
+                      <span>Hint:</span> This company&#39;s site is known for being written in PHP.
+                    </p>
+                  </div>
+                </div>
+                )
+            }
+
+            ReactDOM.render(App(), document.getElementById('app'));
+        </script>
+    </body>
+
+</html>
