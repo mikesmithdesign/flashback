@@ -36,12 +36,29 @@
                     })
                 }
                 shuffleBackward = () => {
-                    console.log('backwards')
+                    const {cardData} = this.state;
+                    const length = cardData.length - 1;
+                    const newCardData = [cardData[length], ...cardData.slice(0, length)];
+
+                    this.setState({
+                        cardData:  newCardData
+                    })
+
+
                 }
 
                 shuffleForward = () => {
-                    console.log('forwards')
+                    const {cardData} = this.state;
+                    const newCardData = [...cardData.slice(1), cardData[0]];
+
+
+                    this.setState({
+                        cardData:  newCardData
+                    })
                 }
+
+
+
 
                 render() {
                     return (
@@ -55,7 +72,7 @@
                       </p>
 
                       <div className="card-list">
-                        {this.state.cardData.map((card, index) => <Card front={card.front} key={index}/>)}
+                        {this.state.cardData.map((card, index) => <Card front={card.front} back={card.back} key={index} index={index}/>)}
                       </div>
                       <div className="buttons">
                         <button onClick={() => this.shuffleBackward()}>
@@ -72,18 +89,65 @@
             }
 
             class Card extends React.Component {
+                constructor() {
+                    super();
+                    this.state = {
+                        flipped: false
+                    };
+                }
+                flipCard = () => {
+                    if(this.props.index === 0) {
+                        this.setState({
+                            flipped: !this.state.flipped
+                        })
+                    }
+                }
+
+                componentDidUpdate(prevProps, prevState) {
+                    if(prevState.flipped === true) {
+                        this.setState({
+                            flipped: false
+                        })
+                    }
+                }
+
+
+
+                cardClass = () => this.state.flipped ? "Card -back" : "Card -front";
+
+
+
                 render() {
                     return (
-                    <div className="Card -front">
-                      <div className="front">
-                        <h3 className="question">
-                            {this.props.front.question}
-                        </h3>
-                        <p className="hint">
-                          <span>Hint: </span>
-                          {this.props.front.hint}
-                        </p>
-                      </div>
+                    <div className={this.cardClass()} onClick={() => this.flipCard()}>
+
+                        {!this.state.flipped ?
+
+                          <div className="front">
+                            <h3 className="question">
+                                {this.props.front.question}
+                            </h3>
+                            <p className="hint">
+                              <span>Hint: </span>
+                              {this.props.front.hint}
+                            </p>
+                          </div>
+
+                          :
+
+                        <div className="back">
+                            <div className="image">
+                              <img src={this.props.back.image}/>
+                            </div>
+                            <h3 className="answer">
+                                {this.props.back.answer}
+                            </h3>
+                            <p className="description">
+                              {this.props.back.description}
+                            </p>
+                        </div>
+
+                      }
                     </div>
                     )
                 }
